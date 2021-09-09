@@ -1,15 +1,11 @@
 # Diana The Wise
 > Telegram bot
 
-## INPUT: 
-- Clippings.txt
-
-## OUTPUT:
+## :
 - Notification via Telegram with a random clipping periodically
 
 ## Description
-Developed with Python. Automated bot that takes the clippings from your kindle,
-and sends.
+Developed with Python. Automated bot that takes the clippings from your kindle, and sends.
 
 ## TODO
 - [ ] /start msge - Ask

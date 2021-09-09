@@ -17,6 +17,25 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Show the version of the bot
+def version(update, context):
+    sourceCode = "https://github.com/CxrlosKenobi/Diana-Wisdom-Bot"
+    # Display the version and the hyperlink to the source code in html
+    update.message.reply_text(
+        "<b>Diana Wisdom Bot v1.1\n</b>"
+        f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>"
+    , parse_mode="HTML")
+
+
+# Show the list of supported commands
+def help(update, context):
+    update.message.reply_text(
+        """💻 *Comandos disponibles* 💻
+
+• _/certs <rango> <ramoI, ramoII ...>_
+• _/help - Lista de comandos disponibles_
+• _/version - Versión del bot y código fuente_
+    """, parse_mode='Markdown')
 
 def getRemainingDays(subject):
     currentDate = datetime.now().strftime("%Y-%m-%d")
@@ -30,10 +49,19 @@ def getSubjects(update, context):
     with open('Udec.json') as file:
         data = json.load(file)
 
-    msgUsage = """
+    alertMsg = """
 ⚠️ ¡Asegúrate de seguir el formato!
-      /pruebas <Rango> <Ramo, ramo ...>    
+      _/pruebas <rango> <ramoI, ramoII ...>_
 """
+    noneMsg = """
+🙁 ¡Oops! No poseo asignaturas llamadas así.
+"""
+    try:
+        if context.args[0] == 'help':
+            update.message.reply_text(alertMsg, parse_mode='Markdown')
+            return
+    except IndexError:
+        pass
 
     try:
         rango = int(context.args[0])
@@ -43,45 +71,59 @@ def getSubjects(update, context):
         rango = 31
 
     try:
+        # /certs CälculoI
         if not (context.args[0].isdigit()):
-            print()
+            # /certs CálculoI ÁlgebraI
+            ramosRaw = context.args
 
-
-
-
-
-
-        if not context.args[0].isdigit():
+            # If the user input a digit after a string of subjects it will prompt error usage.
+        # /certs 34 CálculoI
+        elif (context.args[0].isdigit()):
+            # /certs 34 CálculoI ÁlgebraI
             if len(context.args) > 1:
-                ramos = context.args[0].split(',')
-                if context.args[0].isdigit():
-                    update.message.reply_text(msgUsage)
-            else:
-                ramos = [context.args[0]]
+                ramosRaw = context.args[1:]
+            elif len(context.args) == 1:
+                ramosRaw = []
         else:
-            if len(context.args) > 2:
-                ramos = context.args[1].split(', ')
-                if context.args[1:].isdigit():
-                    update.message.reply_text(msgUsage)
+            update.message.reply_text(alertMsg)
+            return
+        
 
-            else:
-                ramos = [context.args[1]]
-                if context.args[1:].isdigit():
-                    update.message.reply_text(msgUsage)
     except IndexError:
-        ramos = []
+        ramosRaw = []
     
-    print(ramos)
-    print(type(ramos))
-    
-
+    ramos = []
+    for j in ramosRaw:
+        try:
+            if (j[-1] == 'I') and (j[-2] == 'I'):
+                j = j.replace('II', ' II')
+                ramos.append(j)
+            elif (j[-1] == 'I') and (j[-2] != 'I'):
+                j = j.replace('I', ' I')
+                ramos.append(j)
+            else:
+                ramos.append(j)
+                pass
+        except IndexError:
+            ramos.append(j)
+            pass
 
     subjectsList = []
     for subject in data:
         if getRemainingDays(subject) > rango:
             continue
-        subjectsList.append(f"{getRemainingDays(subject)} días - {subject['name']}")
-    subjectsList.sort(key=lambda x: int(x.split(' ')[0]))    
+        if ramos:
+            if subject['name'] in ramos:
+                subjectsList.append(f"{getRemainingDays(subject)} días - {subject['name']}")
+            else:
+                continue
+        else:
+            subjectsList.append(f"{getRemainingDays(subject)} días - {subject['name']}")
+    if subjectsList == []:
+        update.message.reply_text(noneMsg)
+        return
+    else:
+        subjectsList.sort(key=lambda x: int(x.split(' ')[0]))
 
     body = f"""
     ✳️ *Próximos certámenes* ✳️
@@ -113,8 +155,10 @@ def main():
     updater = Updater(token=token, use_context=True)
     dp = updater.dispatcher
 
+    dp.add_handler(CommandHandler('help', help))
+    dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
-    # dp.add_handler(CommandHandler('pruebas', getSubjects))
+
 
     print('[ ! ] Initializing bot ...')
     updater.start_polling()
