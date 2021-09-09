@@ -3,7 +3,7 @@
 
 Currently supporting two main features, and looking forward to generalize both soon.
 - [x] Exams remaining days for the udec uni
-- [ ] Goodreads clippíngs reminders
+- [ ] Goodreads clippings reminders
 
 ## UdeC features
 Making your semester easier with simple daily automations.
