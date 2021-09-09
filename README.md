@@ -12,7 +12,7 @@ Developed with Python. Automated bot that takes the clippings from your kindle,
 and sends.
 
 ## TODO
-- [ ] /start msge - Ask 
+- [ ] /start msge - Ask
 - [x] Send messages periodically
 - [ ] Format the input to get the metadata of each clipping.
 - [ ] Create UI for delivered messages

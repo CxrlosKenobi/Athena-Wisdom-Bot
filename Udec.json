@@ -1,0 +1,12 @@
+[
+    { "name": "Álgebra I", "date": "2021-09-29" },
+    { "name": "Cálculo II", "date": "2021-10-01" },
+    { "name": "Física II", "date": "2021-10-08" },
+ 
+    { "name": "Cálculo II", "date": "2021-11-08" },
+    { "name": "Álgebra I", "date": "2021-11-05" },
+ 
+    { "name": "Física II", "date": "2021-12-22" },
+    { "name": "Cálculo II", "date": "2021-12-10" },
+    { "name": "Álgebra I", "date": "2021-12-17" }
+]

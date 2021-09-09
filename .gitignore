@@ -1,2 +1,5 @@
 ## Tokens or sensitive data
 token.json
+
+## MISC
+__pycache__
