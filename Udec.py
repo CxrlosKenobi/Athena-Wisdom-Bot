@@ -1,4 +1,4 @@
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
+import telegram
 from telegram.ext import (Updater, 
     CommandHandler, 
     MessageHandler,
@@ -17,17 +17,22 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Show the version of the bot
+# Message to send when the bot joins a group
+def start(update, context):
+    update.message.reply_text(
+        "¡Hey, soy Diana the Wisdom Bot!\n\n"
+        "Todo listo para comenzar ✅\n"
+        "_Para obtener ayuda escribe /help_"
+    , parse_mode='Markdown')
+
 def version(update, context):
     sourceCode = "https://github.com/CxrlosKenobi/Diana-Wisdom-Bot"
-    # Display the version and the hyperlink to the source code in html
     update.message.reply_text(
         "<b>Diana Wisdom Bot v1.1\n</b>"
         f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>"
     , parse_mode="HTML")
 
 
-# Show the list of supported commands
 def help(update, context):
     update.message.reply_text(
         """💻 *Comandos disponibles* 💻
@@ -138,7 +143,7 @@ def getSubjects(update, context):
             assignedStatus = status[0]
         elif 8 <= remaining <= 14:
             assignedStatus = status[1]
-        elif 15 <= remaining <= 20:
+        elif 15 <= remaining <= 23:
             assignedStatus = status[2]
         else:
             assignedStatus = status[3]
@@ -155,9 +160,11 @@ def main():
     updater = Updater(token=token, use_context=True)
     dp = updater.dispatcher
 
+    # dp.add_handler(CommandHandler('start', start)
     dp.add_handler(CommandHandler('help', help))
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
+    dp.add_handler(CommandHandler('start', start))
 
 
     print('[ ! ] Initializing bot ...')
