@@ -11,7 +11,6 @@ Making your semester easier with simple daily automations.
 ### TODO
 - [x] Compute remaining days from data and log it out.
 
-<br>
 ## Goodreads features
 Automated bot that takes the clippings from your kindle, and sends.
 
