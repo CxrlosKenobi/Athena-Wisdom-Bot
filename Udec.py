@@ -113,7 +113,7 @@ def main():
     updater = Updater(token=token, use_context=True)
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler('pruebas', getSubjects, pass_args=True))
+    dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
     # dp.add_handler(CommandHandler('pruebas', getSubjects))
 
     print('[ ! ] Initializing bot ...')
