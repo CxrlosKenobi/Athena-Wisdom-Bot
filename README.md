@@ -11,10 +11,10 @@ Making your semester easier with simple daily automations.
 ## Goodreads features
 Automated bot that takes the clippings from your kindle, and sends.
 
-## TODO UdeC feature
+### TODO UdeC feature
 - [x] Compute remaining days from data and log it out.
 
-## TODO Goodreads feature
+### TODO Goodreads feature
 - [ ] /start msge - Ask
 - [x] Send messages periodically
 - [ ] Format the input to get the metadata of each clipping.
