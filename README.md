@@ -14,7 +14,7 @@ Making your semester easier with simple daily automations.
 ## Goodreads features
 Automated bot that takes the clippings from your kindle, and sends.
 
-### TODO Goodreads feature
+### TODO 
 - [ ] /start msge - Ask
 - [x] Send messages periodically
 - [ ] Format the input to get the metadata of each clipping.
