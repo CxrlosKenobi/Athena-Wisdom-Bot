@@ -8,11 +8,12 @@ Currently supporting two main features, and looking forward to generalize both s
 ## UdeC features
 Making your semester easier with simple daily automations.
 
+### TODO
+- [x] Compute remaining days from data and log it out.
+
+<br>
 ## Goodreads features
 Automated bot that takes the clippings from your kindle, and sends.
-
-### TODO UdeC feature
-- [x] Compute remaining days from data and log it out.
 
 ### TODO Goodreads feature
 - [ ] /start msge - Ask
