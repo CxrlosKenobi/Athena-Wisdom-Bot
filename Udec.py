@@ -1,10 +1,5 @@
-import telegram
 from telegram.ext import (Updater, 
     CommandHandler, 
-    MessageHandler,
-    Filters,
-    ConversationHandler,
-    CallbackQueryHandler
 )
 from datetime import datetime
 from time import *
@@ -17,7 +12,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Message to send when the bot joins a group
 def start(update, context):
     update.message.reply_text(
         "¡Hey, soy Diana the Wisdom Bot!\n\n"
@@ -49,7 +43,6 @@ def getRemainingDays(subject):
 
     return remainingDays
 
-# Telegram command that returns each subject with its remaining days
 def getSubjects(update, context):
     with open('Udec.json') as file:
         data = json.load(file)
@@ -76,15 +69,10 @@ def getSubjects(update, context):
         rango = 31
 
     try:
-        # /certs CälculoI
         if not (context.args[0].isdigit()):
-            # /certs CálculoI ÁlgebraI
             ramosRaw = context.args
 
-            # If the user input a digit after a string of subjects it will prompt error usage.
-        # /certs 34 CálculoI
         elif (context.args[0].isdigit()):
-            # /certs 34 CálculoI ÁlgebraI
             if len(context.args) > 1:
                 ramosRaw = context.args[1:]
             elif len(context.args) == 1:
@@ -102,15 +90,15 @@ def getSubjects(update, context):
         try:
             if (j[-1] == 'I') and (j[-2] == 'I'):
                 j = j.replace('II', ' II')
-                ramos.append(j)
+                ramos.append(j.lower())
             elif (j[-1] == 'I') and (j[-2] != 'I'):
                 j = j.replace('I', ' I')
-                ramos.append(j)
+                ramos.append(j.lower())
             else:
-                ramos.append(j)
+                ramos.append(j.lower())
                 pass
         except IndexError:
-            ramos.append(j)
+            ramos.append(j.lower())
             pass
 
     subjectsList = []
@@ -118,7 +106,8 @@ def getSubjects(update, context):
         if getRemainingDays(subject) > rango:
             continue
         if ramos:
-            if subject['name'] in ramos:
+            # Subject in lower case
+            if subject['name'].lower() in ramos:
                 subjectsList.append(f"{getRemainingDays(subject)} días - {subject['name']}")
             else:
                 continue
@@ -160,7 +149,6 @@ def main():
     updater = Updater(token=token, use_context=True)
     dp = updater.dispatcher
 
-    # dp.add_handler(CommandHandler('start', start)
     dp.add_handler(CommandHandler('help', help))
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
