@@ -16,7 +16,7 @@ def start(update, context):
     update.message.reply_text(
         "¡Hey, soy Diana the Wisdom Bot!\n\n"
         "Todo listo para comenzar ✅\n"
-        "_Para obtener ayuda escribe /help_"
+        "_Para obtener ayuda escribe /diana_"
     , parse_mode='Markdown')
 
 def version(update, context):
@@ -113,7 +113,6 @@ def getSubjects(update, context):
         if getRemainingDays(subject) > rango:
             continue
         if ramos:
-            # Subject in lower case
             if subject['name'].lower() in ramos:
                 subjectsList.append(f"{getRemainingDays(subject)} días - {subject['name']}")
             else:
@@ -156,7 +155,7 @@ def main():
     updater = Updater(token=token, use_context=True)
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler('help', help))
+    dp.add_handler(CommandHandler('diana', help))
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
     dp.add_handler(CommandHandler('start', start))
