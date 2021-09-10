@@ -146,8 +146,6 @@ def getSubjects(update, context):
 
         body += f"• {assignedStatus} _{subject}_\n"
 
-    for i in ramos:
-        print(i, ', ', end='')
     update.message.reply_text(body, parse_mode='Markdown')
 
 
