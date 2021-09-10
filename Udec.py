@@ -5,6 +5,7 @@ from datetime import datetime
 from time import *
 import logging
 import json
+import pytz
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
@@ -166,6 +167,7 @@ def main():
     updater = Updater(token=token, use_context=True)
     dp = updater.dispatcher
 
+
     dp.add_handler(CommandHandler('diana', help))
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
@@ -174,6 +176,10 @@ def main():
     # Init the greetThursday function to send a message each thursday at 08:00
     job_queue = updater.job_queue
     job_queue.run_repeating(greetThursday, interval=60, first=0)
+
+    # Set timezone of the bot to Chile
+    tz = pytz.timezone('America/Santiago')
+    dt = datetime.now(tz)
 
     print('[ ! ] Initializing bot ...')
     updater.start_polling()
