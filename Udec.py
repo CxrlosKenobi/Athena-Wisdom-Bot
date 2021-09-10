@@ -149,6 +149,16 @@ def getSubjects(update, context):
 
     update.message.reply_text(body, parse_mode='Markdown')
 
+# Send a greeting message each thursday at 08:00 at a certain group
+def greetThursday(context):
+    groupID = '-1001373607439'
+    if datetime.now().weekday() == 3 and datetime.now().hour == 8:
+        with open('assets/jueves.gif', 'rb') as file:
+            animated = file.read()
+        # Send animated gif
+        context.bot.send_animation(groupID, animated)
+
+
 def main():
     with open('token.json') as token_file:
         token = json.load(token_file)['token']
@@ -159,19 +169,16 @@ def main():
     dp.add_handler(CommandHandler('diana', help))
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
-    dp.add_handler(CommandHandler('start', start))
+    dp.add_handler(CommandHandler('start', start))    
 
-    with open('assets/jueves.gif', 'rb') as gif:
-        animated = gif.read()
-
-    # Send animated each thursday at 8:00 to the group
-    jueves = CronTrigger(day_of_week=4, hour=8)
-    dp.add_job(update.message.reply_animation, jueves, animated=animated)
-    
+    # Init the greetThursday function to send a message each thursday at 08:00
+    job_queue = updater.job_queue
+    job_queue.run_repeating(greetThursday, interval=60, first=0)
 
     print('[ ! ] Initializing bot ...')
     updater.start_polling()
     print('[ ok ] Bot is running ...')
+
 
 if __name__ == '__main__':
     try:
