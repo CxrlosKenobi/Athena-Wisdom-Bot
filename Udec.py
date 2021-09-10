@@ -32,7 +32,7 @@ def help(update, context):
         """💻 *Comandos disponibles* 💻
 
 • _/certs <rango> <ramoI, ramoII ...>_
-• _/help - Lista de comandos disponibles_
+• _/diana - Lista de comandos disponibles_
 • _/version - Versión del bot y código fuente_
     """, parse_mode='Markdown')
 
