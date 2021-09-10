@@ -36,6 +36,8 @@ def help(update, context):
 • _/version - Versión del bot y código fuente_
     """, parse_mode='Markdown')
 
+
+
 def getRemainingDays(subject):
     currentDate = datetime.now().strftime("%Y-%m-%d")
     subjectDate = subject['date']
@@ -147,7 +149,6 @@ def getSubjects(update, context):
 
     update.message.reply_text(body, parse_mode='Markdown')
 
-
 def main():
     with open('token.json') as token_file:
         token = json.load(token_file)['token']
@@ -160,6 +161,13 @@ def main():
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
     dp.add_handler(CommandHandler('start', start))
 
+    with open('assets/jueves.gif', 'rb') as gif:
+        animated = gif.read()
+
+    # Send animated each thursday at 8:00 to the group
+    jueves = CronTrigger(day_of_week=4, hour=8)
+    dp.add_job(update.message.reply_animation, jueves, animated=animated)
+    
 
     print('[ ! ] Initializing bot ...')
     updater.start_polling()
