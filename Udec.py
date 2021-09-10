@@ -94,6 +94,13 @@ def getSubjects(update, context):
             elif (j[-1] == 'I') and (j[-2] != 'I'):
                 j = j.replace('I', ' I')
                 ramos.append(j.lower())
+
+            elif (j[-1] == 'i') and (j[-2] == 'i'):
+                j = j.replace('ii', ' ii')
+                ramos.append(j.lower())
+            elif (j[-1] == 'i') and (j[-2] != 'i'):
+                j = j.replace('i', ' i')
+                ramos.append(j.lower())
             else:
                 ramos.append(j.lower())
                 pass
@@ -139,6 +146,8 @@ def getSubjects(update, context):
 
         body += f"• {assignedStatus} _{subject}_\n"
 
+    for i in ramos:
+        print(i, ', ', end='')
     update.message.reply_text(body, parse_mode='Markdown')
 
 
