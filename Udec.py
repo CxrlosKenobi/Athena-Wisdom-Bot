@@ -134,17 +134,19 @@ def getSubjects(update, context):
 
 """
 
-    status = ['🔴', '🟠', '🟡', '🟢']
+    status = ['🏳', '🔴', '🟠', '🟡', '🟢']
     for subject in subjectsList:
         remaining = int(subject.split(' ')[0])
-        if 0 <= remaining <= 7 :
+        if 0 <= remaining <= 2:
             assignedStatus = status[0]
-        elif 8 <= remaining <= 14:
+        elif 3 <= remaining <= 7 :
             assignedStatus = status[1]
-        elif 15 <= remaining <= 23:
+        elif 8 <= remaining <= 14:
             assignedStatus = status[2]
-        else:
+        elif 15 <= remaining <= 23:
             assignedStatus = status[3]
+        else:
+            assignedStatus = status[4]
 
         body += f"• {assignedStatus} _{subject}_\n"
 
