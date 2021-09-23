@@ -181,7 +181,7 @@ def main():
     
     # Init the greetThursday function to send a message each thursday at 08:00
     job_queue = updater.job_queue
-    job_queue.run_repeating(greetThursday, interval=60, first=0)
+    job_queue.run_repeating(greetThursday, interval=60, first=datetime.time(8, 0))
 
 
     print('[ ! ] Initializing bot ...')
