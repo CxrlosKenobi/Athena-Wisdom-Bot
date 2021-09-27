@@ -155,7 +155,7 @@ def getSubjects(update, context):
 # Send a greeting message each thursday at 08:00 at a certain group
 def greetThursday(context):
     groupID = '-1001373607439'
-    if datetime.now().weekday() == 3 and datetime.now().hour == 8:
+    if datetime.now().weekday() == 3 and datetime.now().hour == 8 and datetime.now().minute == 0:
         with open('assets/jueves.gif', 'rb') as file:
             animated = file.read()
         # Send animated gif
@@ -173,15 +173,16 @@ def main():
     dp.add_handler(CommandHandler('diana', help))
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
-    dp.add_handler(CommandHandler('start', start))    
-
-    # Init the greetThursday function to send a message each thursday at 08:00
-    job_queue = updater.job_queue
-    job_queue.run_repeating(greetThursday, interval=60, first=0)
-
+    dp.add_handler(CommandHandler('start', start))  
+    
     # Set timezone of the bot to Chile
     tz = pytz.timezone('America/Santiago')
     dt = datetime.now(tz)
+    
+    # Init the greetThursday function to send a message each thursday at 08:00
+    job_queue = updater.job_queue
+    job_queue.run_repeating(greetThursday, interval=60, first=datetime.time(8, 0))
+
 
     print('[ ! ] Initializing bot ...')
     updater.start_polling()
