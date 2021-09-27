@@ -13,6 +13,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+with open('data.json') as file:
+    get = json.load(file)
+    token = get['token']
+    groupID = get['groupID']
+
 def start(update, context):
     update.message.reply_text(
         "¡Hey, soy Diana the Wisdom Bot!\n\n"
@@ -152,41 +157,38 @@ def getSubjects(update, context):
 
     update.message.reply_text(body, parse_mode='Markdown')
 
-# Send a greeting message each thursday at 08:00 at a certain group
 def greetThursday(context):
-    groupID = '-1001373607439'
-    if datetime.now().weekday() == 3 and datetime.now().hour == 8 and datetime.now().minute == 0:
-        with open('assets/jueves.gif', 'rb') as file:
-            animated = file.read()
-        # Send animated gif
-        context.bot.send_animation(groupID, animated)
+    with open('assets/jueves.gif', 'rb') as file:
+        animated = file.read()
+    context.bot.send_animation(groupID, animated)
 
 
 def main():
-    with open('token.json') as token_file:
-        token = json.load(token_file)['token']
+    tz = pytz.timezone('America/Santiago')
+    dt = datetime.now(tz)
 
     updater = Updater(token=token, use_context=True)
     dp = updater.dispatcher
-
 
     dp.add_handler(CommandHandler('diana', help))
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
     dp.add_handler(CommandHandler('start', start))  
-    
-    # Set timezone of the bot to Chile
-    tz = pytz.timezone('America/Santiago')
-    dt = datetime.now(tz)
-    
-    # Init the greetThursday function to send a message each thursday at 08:00
+        
     job_queue = updater.job_queue
-    job_queue.run_repeating(greetThursday, interval=60, first=datetime.time(8, 0))
+    job_queue.run_daily(
+        greetThursday, 
+        time=dt.replace(hour=8, minute=0, second=0, microsecond=0), 
+        days=(0, ),
+        name='Felíz Jueves'
+    )
 
+    updater.start_polling()
 
     print('[ ! ] Initializing bot ...')
     updater.start_polling()
     print('[ ok ] Bot is running ...')
+    updater.idle()
 
 
 if __name__ == '__main__':
