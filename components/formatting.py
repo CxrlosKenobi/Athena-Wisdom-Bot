@@ -1,22 +1,43 @@
 def Clip():
     clippings = []
     with open('data/clippings.txt') as file:
-        aux = 0
-        unwanted = ['(', ')', '"']
+        unwanted = ['(', ')', '"', '«', '»']
+        row = 0
         for line in file:
-            if aux == 0:
-                book, author = line, line
-                aux += 1
-            elif aux == 1:
-                page, date = line, line
-                aux += 1
-            elif aux == 2:
-                aux += 1
+            if  row == 0: # Book & Author
+                if '-' in line:
+                    line = line.split(' - ')
+                    book = line[0].strip()
+                    author = line[1].strip()
+                elif '(' in line:
+                    line = line.split('(')
+                    book = line[0].strip()
+                    author = line[1].strip()
+                    author = author.split(')')[0]
+                else:
+                    book, author = line, line            
+                row += 1
+
+            elif row == 1: # Highlight page and date
+                line = line.split('|')
+                page = line[0].strip().split(' ')[-1].split('-')[-1]            
+                date = line[1].strip()        
+                row += 1
+            elif row == 2: # Empty line
+                row += 1
                 continue
-            elif aux == 3:
+            elif row == 3: # Highlight
                 highlight = line
-                aux += 1
-            elif aux == 4:
+                for char in unwanted:
+                    highlight = highlight.replace(char, '')
+                # Setting caligraphic rules
+                highlight = (highlight[0].upper() + highlight[1:]).strip()
+                if highlight[-1] == '.':
+                    pass
+                else:
+                    highlight = highlight + '.'
+                row += 1
+            elif row == 4: # Separator and end of clipping
                 out = {
                     'book': book,
                     'page': page,
@@ -25,5 +46,5 @@ def Clip():
                     'highlight': highlight   
                 }
                 clippings.append(out)
-                aux = 0
+                row = 0
     return clippings
