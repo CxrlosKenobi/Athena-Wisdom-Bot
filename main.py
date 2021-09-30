@@ -104,7 +104,7 @@ def greetThursday(context):
 def version(update, context):
     sourceCode = "https://github.com/CxrlosKenobi/Diana-Wisdom-Bot"
     update.message.reply_text(
-        "<b>Diana Wisdom Bot v1.1\n</b>"
+        "<b>Diana Wisdom Bot v1.3\n</b>"
         f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>"
     , parse_mode="HTML")
 
