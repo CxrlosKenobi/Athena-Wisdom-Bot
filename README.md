@@ -3,7 +3,7 @@
 
 Currently supporting two main features, and looking forward to generalize both soon.
 - [x] Exams remaining days for the udec uni
-- [ ] Goodreads clippings reminders
+- [x] Goodreads clippings reminders
 
 ## UdeC features
 Making your semester easier with simple daily automations.
@@ -17,7 +17,7 @@ Automated bot that takes the clippings from your kindle, and sends.
 ### TODO 
 - [ ] /start msge - Ask
 - [x] Send messages periodically
-- [ ] Format the input to get the metadata of each clipping.
+- [x] Format the input to get the metadata of each clipping.
 - [ ] Create UI for delivered messages
 
 - [ ] Automate the process of get the clippings while the Kindle is connected.
