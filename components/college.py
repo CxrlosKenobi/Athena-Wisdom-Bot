@@ -1,48 +1,5 @@
-from telegram.ext import (Updater, 
-    CommandHandler, 
-)
 from datetime import datetime
-from time import *
-import logging
 import json
-import pytz
-
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
-    level=logging.INFO
-)
-logger = logging.getLogger(__name__)
-
-with open('data.json') as file:
-    get = json.load(file)
-    token = get['token']
-    groupID = get['groupID']
-
-def start(update, context):
-    update.message.reply_text(
-        "¡Hey, soy Diana the Wisdom Bot!\n\n"
-        "Todo listo para comenzar ✅\n"
-        "_Para obtener ayuda escribe /diana_"
-    , parse_mode='Markdown')
-
-def version(update, context):
-    sourceCode = "https://github.com/CxrlosKenobi/Diana-Wisdom-Bot"
-    update.message.reply_text(
-        "<b>Diana Wisdom Bot v1.1\n</b>"
-        f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>"
-    , parse_mode="HTML")
-
-
-def help(update, context):
-    update.message.reply_text(
-        """💻 *Comandos disponibles* 💻
-
-• _/certs <rango> <ramoI, ramoII ...>_
-• _/diana - Lista de comandos disponibles_
-• _/version - Versión del bot y código fuente_
-    """, parse_mode='Markdown')
-
-
 
 def getRemainingDays(subject):
     currentDate = datetime.now().strftime("%Y-%m-%d")
@@ -52,7 +9,7 @@ def getRemainingDays(subject):
     return remainingDays
 
 def getSubjects(update, context):
-    with open('Udec.json') as file:
+    with open('data/Udec.json') as file:
         data = json.load(file)
 
     alertMsg = """
@@ -156,44 +113,3 @@ def getSubjects(update, context):
         body += f"• {assignedStatus} _{subject}_\n"
 
     update.message.reply_text(body, parse_mode='Markdown')
-
-def greetThursday(context):
-    with open('assets/jueves.gif', 'rb') as file:
-        animated = file.read()
-    context.bot.send_animation(groupID, animated)
-
-
-def main():
-    tz = pytz.timezone('America/Santiago')
-    dt = datetime.now(tz)
-
-    updater = Updater(token=token, use_context=True)
-    dp = updater.dispatcher
-
-    dp.add_handler(CommandHandler('diana', help))
-    dp.add_handler(CommandHandler('version', version))
-    dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
-    dp.add_handler(CommandHandler('start', start))  
-        
-    job_queue = updater.job_queue
-    job_queue.run_daily(
-        greetThursday, 
-        time=dt.replace(hour=8, minute=0, second=0, microsecond=0), 
-        days=(0, ),
-        name='Felíz Jueves'
-    )
-
-    updater.start_polling()
-
-    print('[ ! ] Initializing bot ...')
-    updater.start_polling()
-    print('[ ok ] Bot is running ...')
-    updater.idle()
-
-
-if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        print('\n[ ! ] Exiting ...')
-        exit(1)
