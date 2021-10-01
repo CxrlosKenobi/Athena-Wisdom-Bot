@@ -14,6 +14,7 @@ from components.formatting import Clip
 from components.goodread import *
 from components.college import *
 
+INPUT_TEXT = 0
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
     level=logging.INFO
@@ -23,7 +24,6 @@ logger = logging.getLogger(__name__)
 
 clippings = Clip()
 
-INPUT_TEXT = 0
 with open('data.json', 'r') as file:
     get = json.load(file)
     token = get['token']
@@ -41,20 +41,31 @@ def start(update, context):
         "_Para obtener ayuda escribe /diana_"
     , parse_mode='Markdown')
 
+def test(update, context):
+    seed = randint(0, len(clippings)- 1)
+    highlight = clippings[seed]['highlight']
+    source = clippings[seed]['book']
+    if len(source) < 3:
+        source = clippings[seed]['author']
+
+    context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text = f'_"{highlight}"_\n- *{source}*',
+        parse_mode='Markdown'
+    )
+
 def Callback(context):
-    highlight = clippings[randint(0, len(clippings) - 1)]['highlight']
-    highlight = (highlight[0].upper() + highlight[1:]).strip()
+    seed = randint(0, len(clippings)- 1)
+    highlight = clippings[seed]['highlight']
+    source = clippings[seed]['book']
 
-    if highlight[-1] == '.':
-        pass
-    
-    else:
-        highlight = highlight + '.'
+    # If book has no characters, use author instead
+    if len(source) < 3:
+        source = clippings[seed]['author']
 
-    goodreadID = data['goodreadID']
     context.bot.send_message(
         chat_id=goodreadID, 
-        text=f'_"{highlight}"_', 
+        text = f'_"{highlight}"_\n- *{source}*',
         parse_mode='Markdown'
     )
 
@@ -124,6 +135,7 @@ def main():
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
 
+    dp.add_handler(CommandHandler('test', test))
     job_queue = updater.job_queue
     job_queue.run_daily(
         greetThursday, 
@@ -132,9 +144,9 @@ def main():
         name='Felíz Jueves'
     )
 
-    dp.add_handler(CommandHandler("sched", Sched, pass_args=True))
+
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler('btnMode', btnMode),
+        entry_points=[CommandHandler('sched', btnMode),
         CallbackQueryHandler(Sched)
         ],
 
