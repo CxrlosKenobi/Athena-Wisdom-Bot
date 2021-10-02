@@ -3,7 +3,7 @@ from telegram.ext import (
     CommandHandler, 
     MessageHandler, 
     Filters, 
-    ConversationHandler, 
+    ConversationHandler,
     CallbackQueryHandler
 )
 from random import randint
@@ -136,6 +136,7 @@ def main():
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
 
     dp.add_handler(CommandHandler('test', test))
+    # dp.add_handler(CommandHandler('queue', displayJobQueue))
     job_queue = updater.job_queue
     job_queue.run_daily(
         greetThursday, 
@@ -147,7 +148,7 @@ def main():
 
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('sched', btnMode),
-        CallbackQueryHandler(Sched)
+            CallbackQueryHandler(Sched)
         ],
 
         states={
