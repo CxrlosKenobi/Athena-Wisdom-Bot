@@ -42,7 +42,7 @@ def Clip():
                     'book': book,
                     'page': page,
                     'author': author,
-                    'date': date,
+                    # 'date': date,
                     'highlight': highlight   
                 }
                 clippings.append(out)
