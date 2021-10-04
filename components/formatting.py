@@ -21,7 +21,7 @@ def Clip():
             elif row == 1: # Highlight page and date
                 line = line.split('|')
                 page = line[0].strip().split(' ')[-1].split('-')[-1]            
-                # date = line[1]
+                date = line[1].strip()
                 row += 1
             elif row == 2: # Empty line
                 row += 1
@@ -42,7 +42,7 @@ def Clip():
                     'book': book,
                     'page': page,
                     'author': author,
-                    # 'date': date,
+                    'date': date,
                     'highlight': highlight   
                 }
                 clippings.append(out)

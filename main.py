@@ -135,7 +135,7 @@ def main():
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
 
-    dp.add_handler(CommandHandler('test', test))
+    dp.add_handler(CommandHandler('get', test))
     # dp.add_handler(CommandHandler('queue', displayJobQueue))
     job_queue = updater.job_queue
     job_queue.run_daily(
