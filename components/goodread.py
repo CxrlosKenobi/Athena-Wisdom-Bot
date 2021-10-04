@@ -3,7 +3,6 @@ from telegram import (
     InlineKeyboardMarkup
 )
 from datetime import datetime
-from .formatting import Clip
 import pytz
 import json
 from random import randint

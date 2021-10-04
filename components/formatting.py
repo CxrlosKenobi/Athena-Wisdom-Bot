@@ -31,7 +31,7 @@ def Clip():
                 highlight = line
                 for char in unwanted:
                     highlight = highlight.replace(char, '')
-                # Setting caligraphic rules
+
                 highlight = (highlight[0].upper() + highlight[1:]).strip()
                 if highlight[-1] == '.':
                     pass
