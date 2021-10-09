@@ -59,7 +59,6 @@ def Callback(context):
     highlight = clippings[seed]['highlight']
     source = clippings[seed]['book']
 
-    # If book has no characters, use author instead
     if len(source) < 3:
         source = clippings[seed]['author']
 
