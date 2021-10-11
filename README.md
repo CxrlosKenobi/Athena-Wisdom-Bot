@@ -4,6 +4,10 @@
 Currently supporting two main features, and looking forward to generalize both soon.
 - [x] Exams remaining days for the udec uni
 - [x] Goodreads clippings reminders
+- [ ] Implement data into a dynamic database
+- [ ] Being stricter with formatting
+- [ ] Develop NLP to catch the context and variables that each quote involves, in order to reach accuracy while posting those.
+
 
 ## UdeC features
 Making your semester easier with simple daily automations.
