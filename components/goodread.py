@@ -13,6 +13,27 @@ dt = datetime.now(tz)
 with open('data.json', 'r') as file:
     data = json.load(file)
 
+
+def push(highlight, verified):
+    if verified is True:
+        with open('data/records.json', 'r') as file:
+            hist = json.load(file)
+            # Check efficiency of this sort later
+            hist['0'] = hist['1']
+            hist['1'] = hist['2']
+            hist['2'] = hist['3']
+            hist['3'] = hist['4']
+            hist['4'] = hist['5']
+            hist['5'] = hist['6']
+            hist['6'] = hist['7']
+            hist['7'] = highlight
+            with open('data/records.json', 'w') as file:
+                json.dump(hist, file, indent=4)
+    else:
+        with open('data/records.json', 'r') as file:
+            hist = json.load(file)
+            return hist
+
 def btnMode(update, context):
     update.message.reply_text(
         text='Type something...',

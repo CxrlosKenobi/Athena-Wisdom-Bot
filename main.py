@@ -41,10 +41,25 @@ def start(update, context):
         "_Para obtener ayuda escribe /diana_"
     , parse_mode='Markdown')
 
-def test(update, context):
+def get(update, context):
     seed = randint(0, len(clippings)- 1)
     highlight = clippings[seed]['highlight']
-    source = clippings[seed]['book']
+    history = push(highlight, False)
+
+    doWhile = True
+    while doWhile == True:
+        if highlight in list(history.values()):
+            seed = randint(0, len(clippings)- 1)
+            highlight = clippings[seed]['highlight']
+            doWhile = True
+        elif highlight not in list(history.values()):
+            source = clippings[seed]['book']
+            doWhile = False
+        else:
+            print('\n[ * ] Cycles error at Callback')
+            return exit(1)
+
+    history = push(highlight, True)
     if len(source) < 3:
         source = clippings[seed]['author']
 
@@ -57,8 +72,23 @@ def test(update, context):
 def Callback(context):
     seed = randint(0, len(clippings)- 1)
     highlight = clippings[seed]['highlight']
-    source = clippings[seed]['book']
+    history = push(highlight, False)
 
+    doWhile = True
+    while doWhile == True:
+        if highlight in list(history.values()):
+            seed = randint(0, len(clippings)- 1)
+            highlight = clippings[seed]['highlight']
+            doWhile = True
+        elif highlight not in list(history.values()):
+            doWhile = False
+            source = clippings[seed]['book']
+        else:
+            print('\n[ * ] Cycles error at Callback')
+            return exit(1)
+
+    history = push(highlight, True)
+        
     if len(source) < 3:
         source = clippings[seed]['author']
 
@@ -101,7 +131,7 @@ def Sched(update, context):
         )
 
     else:
-        msg = "🙁 ¡Oops! Please, try with a valid argument."
+        msg = "🙁 ¡Oops! Please, try with doWhile valid argument."
         context.bot.send_message(chat_id=goodreadID, text=msg)
 
         return 1
@@ -115,7 +145,7 @@ def version(update, context):
     sourceCode = "https://github.com/CxrlosKenobi/Diana-Wisdom-Bot"
     update.message.reply_text(
         "<b>Diana Wisdom Bot v1.3\n</b>"
-        f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>"
+        f"<b>Código fuente: </b><doWhile href='{sourceCode}'>GitHub</doWhile>"
     , parse_mode="HTML")
 
 def help(update, context):
@@ -134,7 +164,7 @@ def main():
     dp.add_handler(CommandHandler('version', version))
     dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
 
-    dp.add_handler(CommandHandler('get', test))
+    dp.add_handler(CommandHandler('get', get))
     # dp.add_handler(CommandHandler('queue', displayJobQueue))
     job_queue = updater.job_queue
     job_queue.run_daily(
