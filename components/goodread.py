@@ -18,7 +18,7 @@ def push(highlight, verified):
     if verified is True:
         with open('data/records.json', 'r') as file:
             hist = json.load(file)
-            # Check efficiency of this sort later
+            # Check efficiency for this sort later
             hist['0'] = hist['1']
             hist['1'] = hist['2']
             hist['2'] = hist['3']
@@ -26,7 +26,10 @@ def push(highlight, verified):
             hist['4'] = hist['5']
             hist['5'] = hist['6']
             hist['6'] = hist['7']
-            hist['7'] = highlight
+            hist['7'] = hist['8']
+            hist['8'] = hist['9']
+            hist['9'] = hist['10']
+            hist['10'] = highlight
             with open('data/records.json', 'w') as file:
                 json.dump(hist, file, indent=4)
     else:
