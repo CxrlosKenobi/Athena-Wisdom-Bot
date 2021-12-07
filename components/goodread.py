@@ -29,7 +29,12 @@ def push(highlight, verified):
             hist['7'] = hist['8']
             hist['8'] = hist['9']
             hist['9'] = hist['10']
-            hist['10'] = highlight
+            hist['10'] = hist['11']
+            hist['11'] = hist['12']
+            hist['12'] = hist['13']
+            hist['13'] = hist['14']
+            hist['14'] = hist['15']
+            hist['15'] = highlight
             with open('data/records.json', 'w') as file:
                 json.dump(hist, file, indent=4)
     else:
