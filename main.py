@@ -34,9 +34,9 @@ job_queue = updater.job_queue
 
 def start(update, context):
     update.message.reply_text(
-        "¡Hey, soy Diana the Wisdom Bot!\n\n"
-        "Todo listo para comenzar ✅\n"
-        "_Para obtener ayuda escribe /diana_"
+        "¡Hey, I'm Diana the Wisdom Bot!\n\n"
+        "Everything ready to start! ✅\n"
+        "_For more help, type /diana_"
     , parse_mode='Markdown')
 
 def get(update, context):
@@ -139,12 +139,12 @@ def version(update, context):
     sourceCode = "https://github.com/CxrlosKenobi/Diana-Wisdom-Bot"
     update.message.reply_text(
         "<b>Diana Wisdom Bot v1.3</b> \n"
-        f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>"
+        f"<b>Source code: </b><a href='{sourceCode}'>GitHub</a>"
     , parse_mode="HTML")
 
 def help(update, context):
     update.message.reply_text(
-        """💻 *Comandos disponibles* 💻
+        """💻 *Supported Commands* 💻
 
 • _/get - Inspirational quotes_
 • _/sched - Set schedule for quotes_
