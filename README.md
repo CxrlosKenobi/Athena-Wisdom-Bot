@@ -12,13 +12,7 @@ Currently supporting two main features, and looking forward to generalize both s
 - [ ] Develop NLP to catch the context and variables that each quote involves, in order to reach accuracy while posting those.
 
 
-## UdeC features
-Making your semester easier with simple daily automations.
-
-### TODO
-- [x] Compute remaining days from data and log it out.
-
-## Goodreads features
+## Features
 Automated bot that takes the clippings from your kindle, and sends.
 
 ### TODO 
