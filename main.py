@@ -138,7 +138,7 @@ def Sched(update, context):
 def version(update, context):
     sourceCode = "https://github.com/CxrlosKenobi/Diana-Wisdom-Bot"
     update.message.reply_text(
-        "<b>Diana Wisdom Bot v1.3</b> \n"
+        "<b>Diana Wisdom Bot v1.4</b> \n"
         f"<b>Source code: </b><a href='{sourceCode}'>GitHub</a>"
     , parse_mode="HTML")
 
