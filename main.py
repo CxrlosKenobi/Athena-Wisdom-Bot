@@ -12,7 +12,6 @@ import json
 
 from components.formatting import Clip
 from components.goodread import *
-from components.college import *
 
 INPUT_TEXT = 0
 logging.basicConfig(
@@ -27,7 +26,6 @@ clippings = Clip()
 with open('data.json', 'r') as file:
     get = json.load(file)
     token = get['token']
-    groupID = get['groupID']
     goodreadID = get['goodreadID']
     
 
@@ -63,8 +61,8 @@ def get(update, context):
     if len(source) < 3:
         source = clippings[seed]['author']
 
-    context.bot.send_message(
-        chat_id=update.effective_chat.id,
+    update.message.reply_text(
+        # chat_id=update.effective_chat.id,
         text = f'_"{highlight}"_\n- *{source}*',
         parse_mode='Markdown'
     )
@@ -136,25 +134,22 @@ def Sched(update, context):
 
         return 1
 
-def greetThursday(context):
-    with open('assets/jueves.gif', 'rb') as file:
-        animated = file.read()
-    context.bot.send_animation(groupID, animated)
 
 def version(update, context):
     sourceCode = "https://github.com/CxrlosKenobi/Diana-Wisdom-Bot"
     update.message.reply_text(
-        "<b>Diana Wisdom Bot v1.3\n</b>"
-        f"<b>Código fuente: </b><doWhile href='{sourceCode}'>GitHub</doWhile>"
+        "<b>Diana Wisdom Bot v1.3</b> \n"
+        f"<b>Código fuente: </b><a href='{sourceCode}'>GitHub</a>"
     , parse_mode="HTML")
 
 def help(update, context):
     update.message.reply_text(
         """💻 *Comandos disponibles* 💻
 
-• _/certs <rango> <ramoI, ramoII ...>_
-• _/diana - Lista de comandos disponibles_
-• _/version - Versión del bot y código fuente_
+• _/get - Inspirational quotes_
+• _/sched - Set schedule for quotes_
+• _/diana - Displays supported commands_
+• _/version - Bot version & Source code_
     """, parse_mode='Markdown')
 
 def main():
@@ -162,18 +157,10 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler('diana', help))
     dp.add_handler(CommandHandler('version', version))
-    dp.add_handler(CommandHandler('certs', getSubjects, pass_args=True))
 
     dp.add_handler(CommandHandler('get', get))
     # dp.add_handler(CommandHandler('queue', displayJobQueue))
     job_queue = updater.job_queue
-    job_queue.run_daily(
-        greetThursday, 
-        time=dt.replace(hour=8, minute=0, second=0, microsecond=0), 
-        days=(3, ),
-        name='Felíz Jueves'
-    )
-
 
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('sched', btnMode),
