@@ -18,10 +18,9 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', 
     level=logging.INFO
 )
-
 logger = logging.getLogger(__name__)
-
 clippings = Clip()
+
 
 with open('data.json', 'r') as file:
     get = json.load(file)
@@ -37,12 +36,13 @@ def start(update, context):
         "¡Hey, I'm Diana the Wisdom Bot!\n\n"
         "Everything ready to start! ✅\n"
         "_For more help, type /diana_"
-    , parse_mode='Markdown')
+    , parse_mode='Markdown')    
 
 def get(update, context):
     seed = randint(0, len(clippings)- 1)
     highlight = clippings[seed]['highlight']
-    history = push(highlight, False)
+    author = clippings[seed]['author']
+    history = push(author, False)
 
     doWhile = True
     while doWhile == True:
@@ -57,7 +57,7 @@ def get(update, context):
             print('\n[ * ] Cycles error at Callback')
             return exit(1)
 
-    history = push(highlight, True)
+    history = push(author, True)
     if len(source) < 3:
         source = clippings[seed]['author']
 
@@ -70,22 +70,23 @@ def get(update, context):
 def Callback(context):
     seed = randint(0, len(clippings)- 1)
     highlight = clippings[seed]['highlight']
-    history = push(highlight, False)
+    author = clippings[seed]['author']
+    history = push(author, False)
 
     doWhile = True
     while doWhile == True:
-        if highlight in list(history.values()):
+        if author in list(history.values()):
             seed = randint(0, len(clippings)- 1)
             highlight = clippings[seed]['highlight']
             doWhile = True
-        elif highlight not in list(history.values()):
+        elif author not in list(history.values()):
             doWhile = False
             source = clippings[seed]['book']
         else:
             print('\n[ * ] Cycles error at Callback')
             return exit(1)
 
-    history = push(highlight, True)
+    history = push(author, True)
         
     if len(source) < 3:
         source = clippings[seed]['author']
