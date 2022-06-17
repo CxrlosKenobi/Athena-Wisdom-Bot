@@ -7,14 +7,10 @@ __pycache__/
 # C extensions
 *.so
 
-# C/C++ Binaries
-bin/insert_cert
-bin/remove_cert
-
 # Distribution / packaging
 .Python
 data.json
-sensitive.json
+config.json
 build/
 develop-eggs/
 dist/
