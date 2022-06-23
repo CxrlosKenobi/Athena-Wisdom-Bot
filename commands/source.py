@@ -1,5 +1,5 @@
 #
-async def info(update, context):
+async def info(update, context) -> None:
   source_code = "https://github.com/CxrlosKenobi/Athena-Wisdom-Bot"
   await context.bot.send_message(
     chat_id=update.effective_chat.id,
