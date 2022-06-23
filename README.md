@@ -2,14 +2,11 @@
 > Telegram bot
 
 ## Features
-Automated bot that takes the clippings from your kindle, and sends.
+> [using latest Python Telegram Bot version](https://python-telegram-bot.org/)
 
-### TODO 
-- [ ] /start msge - Ask
-- [x] Send messages periodically
-- [x] Format the input to get the metadata of each clipping.
-- [ ] Create UI for delivered messages
+- Dynamic quotes request from MongoDB Atlas
+- Sends your highlights or inspirational quotes to your Telegram chat
+- Automated daily quotes posting
 
-- [ ] Automate the process of get the clippings while the Kindle is connected.
-- [ ] Develope a GUI with each clipping.
-- [ ] Dynamic GET of the clippings.
+### Further development
+- Take highlights from kindle and upload to remote db 
