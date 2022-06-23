@@ -5,7 +5,6 @@ async def get(update, context) -> None:
   request = get_random_quote()
 
   while not hist_handler(request['id']):
-    print('[get] Retrying...')
     request = get_random_quote()
 
   await context.bot.send_message(
