@@ -1,5 +1,7 @@
 # Athena's Wisdom
-> Telegram bot
+> WIP Project 
+
+Give it a try and get your daily show of wisdom by sending `/get` to [Athena](https://t.me/AthenaWisdomBot)!
 
 ## Features
 > [using latest Python Telegram Bot version](https://python-telegram-bot.org/)
