@@ -1,13 +1,14 @@
 import logging
-from telegram import Update 
 from telegram.ext import (
   ApplicationBuilder,
-  CommandHandler
+  CommandHandler,
+  JobQueue
 )
 #
-from components.fetch import fetch_token
+from components.fetch import fetch_config
 from commands.source import info
 from commands.get import get
+from jobs.init import send_jobs
 
 
 logging.basicConfig(
@@ -18,9 +19,13 @@ logging.basicConfig(
 if __name__ == "__main__":
   bot = (
     ApplicationBuilder()
-    .token(fetch_token())
+    .token(fetch_config({ 'key': 'token' }))
+    .job_queue(JobQueue())
     .build()
   )
+  
+  job_queue = bot.job_queue
+  send_jobs(job_queue)
 
   bot.add_handler(CommandHandler("info", info))
   bot.add_handler(CommandHandler("get", get))
