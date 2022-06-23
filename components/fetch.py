@@ -1,7 +1,8 @@
 import json
 
-def fetch_token():
+def fetch_config(request):
   with open("config.json", "r") as file:
     get = json.load(file)
-  return get["token"]
+  data = request['key']
 
+  return get[data]

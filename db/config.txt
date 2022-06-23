@@ -1,3 +1,0 @@
-
-[database]
-con = sqlite:///clips.db
