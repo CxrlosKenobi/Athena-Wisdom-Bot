@@ -1,16 +1,5 @@
-# Diana The Wise
+# Athena's Wisdom
 > Telegram bot
-
-Currently supporting two main features, and looking forward to generalize both soon.
-- [x] Exams remaining days for the udec uni
-- [x] Goodreads clippings reminders
-- [ ] Implement pre-commits
-- [ ] Implement data into a dynamic database
-- [ ] Avoid repeating quotes in a short-term
-- [ ] Command to display the job queue and hopefully being able to change it dinamically
-- [ ] Being stricter with formatting
-- [ ] Develop NLP to catch the context and variables that each quote involves, in order to reach accuracy while posting those.
-
 
 ## Features
 Automated bot that takes the clippings from your kindle, and sends.
