@@ -8,7 +8,6 @@ async def get(update, context) -> None:
     request = get_random_quote()
 
   desc = ""
-  print("....", request["id"])
   if ((request['source'] == None) or (request['source'] == 'None')):
     desc += f"~ Unknown source"
 

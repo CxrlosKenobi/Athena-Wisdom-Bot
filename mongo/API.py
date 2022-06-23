@@ -1,10 +1,10 @@
 from pymongo import MongoClient
 from random import randint
 #
-from components.fetch import fetch_db_url
+from components.fetch import fetch_config
 
 def connect() -> MongoClient:
-  client = MongoClient(fetch_db_url())
+  client = MongoClient(fetch_config({ 'key': 'dbURL' }))
   db = client.diana_wisdom
   collection = db.quotes
 
