@@ -7,12 +7,29 @@ async def get(update, context) -> None:
   while not hist_handler(request['id']):
     request = get_random_quote()
 
+  desc = ""
+  print("....", request["id"])
+  if ((request['source'] == None) or (request['source'] == 'None')):
+    desc += f"~ Unknown source"
+
+  elif (
+    (request['source']['author'] != 'undefined') and
+    (request['source']['book'] == 'undefined')
+  ):
+    desc += f"~ {request['source']['author']}"
+
+  elif (
+    (request['source']['author'] == 'undefined') and
+    (request['source']['book'] != 'undefined')
+  ):
+    desc += f"~ [book] {request['source']['book']}"
+
+  else:
+    desc += f"~ Unknown source"
+
+
   await context.bot.send_message(
     chat_id=update.effective_chat.id,
-    text=(
-      f"""
-      __{request['quote']}__
-      """
-    ), parse_mode='Markdown'
+    text=f"_{request['quote']}_\n_{desc}_",
+    parse_mode='Markdown'
   )
-
