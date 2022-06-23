@@ -7,6 +7,7 @@ from telegram.ext import (
 #
 from components.fetch import fetch_token
 from commands.source import info
+from commands.get import get
 
 
 logging.basicConfig(
@@ -22,4 +23,5 @@ if __name__ == "__main__":
   )
 
   bot.add_handler(CommandHandler("info", info))
+  bot.add_handler(CommandHandler("get", get))
   bot.run_polling()
