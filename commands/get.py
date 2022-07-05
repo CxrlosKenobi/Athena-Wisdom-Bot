@@ -13,7 +13,8 @@ async def get(update, context) -> None:
 
   elif (
     (request['source']['author'] != 'undefined') and
-    (request['source']['book'] == 'undefined')
+    (request['source']['book'] == 'undefined') or
+    (request['source']['book'] == 'Unknown')
   ):
     desc += f"~ {request['source']['author']}"
 
